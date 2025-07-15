@@ -1,0 +1,37 @@
+version: "3.7"
+services:
+## additional step: uncomment all the commented lines, apply the db service, and run the docker-compose up command
+  back:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./:/app
+    ports:
+      - "${PORT_BACK}:${PORT_BACK}"
+    env_file: .env
+    # depends_on:
+    #   - db
+    networks:
+      - celer
+
+  # db:
+  #   image: mysql:latest
+  #   ports:
+  #     - "${PORT_DB}:3306"
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+  #     - MYSQL_DATABASE=${MYSQL_DATABASE}
+  #     - MYSQL_USER=${MYSQL_USER}
+  #     - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+  #   networks:
+  #     - celer
+
+  
+volumes:
+  db:
+    driver: local
+
+networks:
+  celer:
+    
